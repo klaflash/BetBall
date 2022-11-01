@@ -2,10 +2,21 @@
     margin: 0;
     border: 0;
     box-sizing: border-box;
+    font-size: 18px;
+    color: #D4AF37;
 }
 
 body {
-    background-color: lightblue;
+    background-color: black;
+}
+
+button {
+    background-color: #D4AF37;
+    color: black;
+}
+
+input {
+    background-color: rgb(34, 34, 34);
 }
 
 #page-one {
@@ -16,16 +27,52 @@ body {
     gap: 7%;
 }
 
+.line {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 .sign-up {
     display: flex;
-    height: 40vh;
-    width: 25%;
-    border: 1px solid red;
+    height: 45vh;
+    width: 20%;
+    justify-content: center;
+    border: 3px solid #D4AF37;
+}
+
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .sign-in {
     display: flex;
-    height: 40vh;
-    width: 25%;
-    border: 1px solid red;
+    height: 30vh;
+    width: 20%;
+    justify-content: center;
+    border: 3px solid #D4AF37;
+}
+
+.sign-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.bet {
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.bet-form {
+    padding: 2rem;
+    border: 3px solid #D4AF37;
 }
