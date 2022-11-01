@@ -15,6 +15,7 @@ CREATE TABLE Bets(
     Payout integer,
     username VARCHAR(50),
     game_ID VARCHAR(50),
+    placed_odds integer,
     PRIMARY KEY(BET_ID)
 );
 
