@@ -19,11 +19,11 @@ CREATE TABLE Bets(
 );
 
 CREATE TABLE Odds(
-game_ID varchar(50),
-team1 varchar(50),
-team2 varchar(50),
-team1_odds integer,
-team2_odds integer
+   game_ID varchar(50),
+   team1 varchar(50),
+   team2 varchar(50),
+   team1_odds integer,
+   team2_odds integer
 )
 
 
