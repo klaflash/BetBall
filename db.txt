@@ -1,0 +1,32 @@
+CREATE TABLE User(
+   username VARCHAR(50),
+   password VARCHAR(50),
+   email VARCHAR(50),
+   phone VARCHAR(15),
+   balance INTEGER,
+   PRIMARY KEY(username)
+);
+
+CREATE TABLE Bets(
+    BET_ID integer, 
+    Amount integer,
+    description varchar(50), 
+    Event_time datetime,
+    Payout integer,
+    username VARCHAR(50),
+    game_ID VARCHAR(50),
+    PRIMARY KEY(BET_ID)
+);
+
+CREATE TABLE Odds(
+game_ID varchar(50),
+team1 varchar(50),
+team2 varchar(50),
+team1_odds integer,
+team2_odds integer
+)
+
+
+
+
+
