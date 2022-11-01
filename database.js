@@ -36,5 +36,45 @@ router.post('/', (req, res) => {
         }
         
     }
-})
+});
+
+document.getElementById('create-account').addEventListener(() => {
+    const username = document.getElementById('username').textContent;
+    const email = document.getElementById('email').textContent;
+    const pass = document.getElementById('pass').textContent;
+    const phone = document.getElementById('phone').textContent;
+    const balance = 100;
+
+    try {
+        db.promise().query(`INSERT INTO USER VALUES('${username}', '${pass}', '${email}', '${phone}', '${balance}')`);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+document.getElementById('login').addEventListener(() => {
+
+});
+
+document.getElementById('place').addEventListener(() => {
+
+    const bet_id = 0001;
+    const amount = document.getElementById('amount').textContent;
+    const description = 'Warriors vs. Heat';
+    const time = '7:30';
+    const payout = 2 * amount;
+    const username = 'TestUser';
+    const game_id = '0001';
+    const placed_odds = '+100';
+
+    try {
+        db.promise().query(`INSERT INTO BETS VALUES('${bet_id}', '${amount}', '${description}', '${time}', '${payout}', '${username}', '${game_id}', '${placed_odds}')`);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+
+
 
