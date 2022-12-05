@@ -5,11 +5,14 @@ const router = Router();
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'betball',
-    password: 'pass',
-    database: 'Name'
+    user: 'root',
+    password: 'password',
+    database: 'betball_database'
 })
 
+const testQuery = "SELECT * FROM bets;"
+
+/*
 router.use((req, res, next) => {
     console.log('Request made to /USERS ROUTE');
     next();
@@ -74,10 +77,13 @@ router.post('/', (req, res) => {
 document.getElementById('login').addEventListener(() => {
 
 });
+*/
 
-
-
-
-
-
-
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    connection.query(testQuery, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+      });
+  });
