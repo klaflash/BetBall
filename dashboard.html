@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./dashboard.js"></script>
+    <title>BetBall</title>
+</head>
+<body>
+
+    <h1>Welcome to your account</h1>
+
+    <div class="bet">
+        <form class="bet-form" action="">
+            
+            <div id="team-one">
+                <input type="radio" name="team" value="team-one">
+                <span>Golden State Warriors</span>
+                <span>+100</span>
+            </div>
+
+            
+            <div id="team-two">
+                <input type="radio" name="team" value="team-two">
+                <span>Miami Heat</span>
+                <span>-120</span>
+            </div>
+            
+            <label for="amount">Bet Amount</label>
+            <input type="number" name="amount" id="amount">
+
+            <button id="place" type="submit">Place</button>
+        </form>
+
+    </div>
+    
+</body>
+</html>
