@@ -134,3 +134,5 @@ function createAccount(transaction, username, email, pass, phone, balance) {
     );
 
 }
+
+export { db };
