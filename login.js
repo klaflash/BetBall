@@ -1,8 +1,14 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
-let user;
 
+let transfer = {
+  db: db
+};
+
+// document.getElementById('page-one').style.display = flex;
+// document.getElementById('bet').style.display = none;
 $(function () {
   db.transaction(function (transaction) {
+    //const query = 'DROP TABLE User'
     const sql =
       'CREATE TABLE User(' +
       'username VARCHAR(50),' +
@@ -10,6 +16,7 @@ $(function () {
       'email VARCHAR(50),' +
       'phone VARCHAR(15),' +
       'balance INTEGER,' +
+      'logged INTEGER,' +
       'PRIMARY KEY(username))';
 
     transaction.executeSql(
@@ -30,6 +37,7 @@ $(function () {
     const pass = $('#pass').val();
     const phone = $('#phone').val();
     const balance = 0;
+    const logged = 0;
 
     db.transaction(function (transaction) {
       const query = `SELECT username FROM User`;
@@ -48,10 +56,10 @@ $(function () {
             if (found) {
               alert('Username already in use');
             } else {
-              createAccount(transaction, username, email, pass, phone, balance);
+              createAccount(transaction, username, email, pass, phone, balance, logged);
             }
           } else {
-            createAccount(transaction, username, email, pass, phone, balance);
+            createAccount(transaction, username, email, pass, phone, balance, logged);
           }
         },
         function (transaction2, err) {
@@ -67,7 +75,7 @@ $(function () {
 
     db.transaction(function (transaction) {
       const query = 'SELECT username, password FROM User';
-      transaction.executeSql(query, undefined, function (transaction, result) {
+      transaction.executeSql(query, undefined, function (transaction2, result) {
         if (result.rows.length) {
           let foundUser = false;
           for (let i = 0; i < result.rows.length; i++) {
@@ -75,7 +83,7 @@ $(function () {
               foundUser = true;
               if (result.rows.item(i).password === password) {
                 //alert('Sucessfull login')
-                user = username;
+                login(transaction, username);
                 window.location.href = 'dashboard.html';
               } else {
                 alert('incorrect password');
@@ -109,6 +117,7 @@ $(function () {
               const email = row.email;
               const phone = row.phone;
               const balance = row.balance;
+              const logged = row.logged;
               $('#item-list').append(
                 '<tr><td>' +
                   username +
@@ -120,12 +129,14 @@ $(function () {
                   phone +
                   '</td><td>' +
                   balance +
+                  '</td><td>' +
+                  logged +
                   '</td></td>'
               );
             }
           } else {
             $('#item-list').append(
-              '<tr><td colspan="6" align="center">No item found</td></tr>'
+              '<tr><td colspan="7" align="center">No item found</td></tr>'
             );
           }
         },
@@ -137,20 +148,35 @@ $(function () {
   });
 });
 
-function createAccount(transaction, username, email, pass, phone, balance) {
-  const sql =
-    'INSERT INTO USER(username, email, password, phone, balance) VALUES(?,?,?,?,?)';
+function createAccount(transaction, username, email, pass, phone, balance, logged) {
+    alert('here')
+  const sql = 'INSERT INTO USER(username, email, password, phone, balance, logged) VALUES(?,?,?,?,?,?)';
   transaction.executeSql(
     sql,
-    [username, email, pass, phone, balance],
+    [username, email, pass, phone, balance, logged],
     function () {
-      //alert('New item is added successfully');
+      alert('New item is added successfully');
     },
     function (transaction, err) {
       alert(err.message);
     }
   );
 }
+
+function login(transaction, username) {
+    const sql =
+      `UPDATE User SET logged = 0 WHERE username = ${username}`;
+    transaction.executeSql(
+      sql,
+      undefined,
+      function () {
+        //alert('New item is added successfully');
+      },
+      function (transaction, err) {
+        alert(err.message);
+      }
+    );
+  }
 
 //console.log(typeof exports === "object")
 //module.exports = {db, user};
