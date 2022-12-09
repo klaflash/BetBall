@@ -3,76 +3,77 @@
     border: 0;
     box-sizing: border-box;
     font-size: 18px;
-    color: #D4AF37;
-}
-
-body {
+    color: #d4af37;
+  }
+  
+  body {
     background-color: black;
-}
-
-button {
-    background-color: #D4AF37;
+  }
+  
+  button {
+    background-color: #d4af37;
     color: black;
-}
-
-input {
+  }
+  
+  input {
     background-color: rgb(34, 34, 34);
-}
-
-#page-one {
+  }
+  
+  #page-one {
     display: flex;
-    height: 50vh;
+    height: 80vh;
     justify-content: center;
     align-items: center;
     gap: 7%;
-}
-
-.line {
+  }
+  
+  .line {
     display: flex;
     flex-direction: column;
     gap: 3px;
-}
-
-.sign-up {
+  }
+  
+  .sign-up {
     display: flex;
     height: 45vh;
     width: 20%;
     justify-content: center;
-    border: 3px solid #D4AF37;
-}
-
-.sign-up-form {
+    border: 3px solid #d4af37;
+  }
+  
+  .sign-up-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-}
-
-.sign-in {
+  }
+  
+  .sign-in {
     display: flex;
     height: 30vh;
     width: 20%;
     justify-content: center;
-    border: 3px solid #D4AF37;
-}
-
-.sign-in-form {
+    border: 3px solid #d4af37;
+  }
+  
+  .sign-in-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-}
-
-.bet {
+  }
+  
+  #bet {
     display: flex;
     height: 50vh;
     justify-content: center;
     align-items: center;
-}
-
-.bet-form {
+  }
+  
+  .bet-form {
     padding: 2rem;
-    border: 3px solid #D4AF37;
-}
+    border: 3px solid #d4af37;
+  }
+  
