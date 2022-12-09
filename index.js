@@ -2,6 +2,8 @@ let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 let user;
 
 $(function () {
+
+  //Create user table
   db.transaction(function (transaction) {
     const sql =
       'CREATE TABLE User(' +
@@ -22,6 +24,67 @@ $(function () {
         //alert('User table is already created');
       }
     );
+  });
+
+
+  //Create odds table
+  db.transaction(function (transaction) {
+    const sql =
+      'CREATE TABLE Odds(' +
+      'game_ID varchar(50),' +
+      'team1 varchar(50),' +
+      'team2 varchar(50),' +
+      'team1_odds integer,' +
+      'team2_odds integer,' +
+      'PRIMARY KEY (game_ID))';
+     
+
+    transaction.executeSql(
+      sql,
+      undefined,
+      function () {
+        //alert('Odds table created sucessfully');
+      },
+      function () {
+        //alert('Odds table is already created');
+      }
+    );
+
+    const game_ID = 0;
+    const team1 = "Golden State Warriors";
+    const team2 = "Miami Heat";
+    const team1_odds = "+100";
+    const team2_odds = "-120";
+
+    db.transaction(function (transaction) {
+      const query = `SELECT game_ID FROM Odds`;
+      transaction.executeSql(
+        query,
+        undefined,
+        function (transaction2, result) {
+          if (result.rows.length) {
+            let found = false;
+            for (let i = 0; i < result.rows.length; i++) {
+              if (result.rows.item(i).game_ID === game_ID) {
+                found = true;
+              }
+            }
+
+            if (found) {
+              alert('game_ID already in use');
+            } else {
+              createOdds(transaction, game_ID, team1, team2, team1_odds, team2_odds);
+            }
+          } else {
+            createOdds(transaction, game_ID, team1, team2, team1_odds, team2_odds);
+          }
+        },
+        function (transaction2, err) {
+          //alert(err.message);
+        }
+      );
+    });
+
   });
 
   $('#create-account').click(function () {
@@ -76,7 +139,7 @@ $(function () {
               if (result.rows.item(i).password === password) {
                 //alert('Successful login')
                 user = username;
-                localStorage.setItem("username", username);
+                localStorage.setItem('username', username);
                 window.location.href = 'dashboard.html';
               } else {
                 alert('incorrect password');
@@ -138,7 +201,14 @@ $(function () {
   });
 });
 
-function createAccount(transaction, username, email, pass, phone, balance, logged) {
+function createAccount(
+  transaction,
+  username,
+  email,
+  pass,
+  phone,
+  balance
+) {
   const sql =
     'INSERT INTO USER(username, email, password, phone, balance) VALUES(?,?,?,?,?)';
   transaction.executeSql(
@@ -153,5 +223,24 @@ function createAccount(transaction, username, email, pass, phone, balance, logge
   );
 }
 
-//console.log(typeof exports === "object")
-//module.exports = {db, user};
+function createOdds(
+  transaction,
+  game_ID,
+  team1,
+  team2,
+  team1_odds,
+  team2_odds,
+) {
+  const sql =
+    'INSERT INTO Odds(game_ID, team1, team2, team1_odds, team2_odds) VALUES(?,?,?,?,?)';
+  transaction.executeSql(
+    sql,
+    [game_ID, team1, team2, team1_odds, team2_odds],
+    function () {
+      //alert('New item is added successfully');
+    },
+    function (transaction, err) {
+      //alert(err.message);
+    }
+  );
+}
