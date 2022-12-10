@@ -50,40 +50,55 @@ $(function () {
       }
     );
 
-    const game_ID = 0;
-    const team1 = "Golden State Warriors";
-    const team2 = "Miami Heat";
-    const team1_odds = "+100";
-    const team2_odds = "-120";
+    const team1 = ['Golden State Warriors', 'San Antonio Spurs'];
+    const team2 = ['Miami Heat', 'Miami Heat'];
+    const team1_odds = ['+100', '+550'];
+    const team2_odds = ['-120', '-800'];
 
-    db.transaction(function (transaction) {
-      const query = `SELECT game_ID FROM Odds`;
-      transaction.executeSql(
-        query,
-        undefined,
-        function (transaction2, result) {
-          if (result.rows.length) {
-            let found = false;
-            for (let i = 0; i < result.rows.length; i++) {
-              if (result.rows.item(i).game_ID === game_ID) {
-                found = true;
-              }
-            }
+    odds_arr = []
 
-            if (found) {
-              alert('game_ID already in use');
+    for (let i = 0; i < team1.length; i++) {
+        odds_arr.push({
+            game_ID: i,
+            team1: team1[i],
+            team2: team2[i],
+            team1_odds: team1_odds[i],
+            team2_odds: team2_odds[i]
+        })
+    }
+
+
+    for (let i = 0; i < odds_arr.length; i++) {
+
+        db.transaction(function (transaction) {
+        const query = `SELECT game_ID FROM Odds`;
+        transaction.executeSql(
+            query,
+            undefined,
+            function (transaction2, result) {
+            if (result.rows.length) {
+                let found = false;
+                for (let i = 0; i < result.rows.length; i++) {
+                if (result.rows.item(i).game_ID === i) {
+                    found = true;
+                }
+                }
+
+                if (found) {
+                alert('game_ID already in use');
+                } else {
+                createOdds(transaction, i, team1[i], team2[i], team1_odds[i], team2_odds[i]);
+                }
             } else {
-              createOdds(transaction, game_ID, team1, team2, team1_odds, team2_odds);
+                createOdds(transaction, i, team1[i], team2[i], team1_odds[i], team2_odds[i]);
             }
-          } else {
-            createOdds(transaction, game_ID, team1, team2, team1_odds, team2_odds);
-          }
-        },
-        function (transaction2, err) {
-          //alert(err.message);
-        }
-      );
-    });
+            },
+            function (transaction2, err) {
+            //alert(err.message);
+            }
+        );
+        });
+    }
 
   });
 
