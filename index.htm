@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,35 +9,37 @@
     <script src="./login.js"></script>
     <title>BetBall</title>
 </head>
+
 <body>
 
     <div id="page-one">
+        <a href="dashboard.html">kyle</a>
         <div class="sign-up">
             <form class='sign-up-form' action="">
                 <div class="line">
                     <label for="username">Username</label>
-                    <input type="text" name="username" id="username">   
+                    <input type="text" name="username" id="username">
                 </div>
 
                 <div class="line">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email">    
+                    <input type="email" name="email" id="email">
                 </div>
-                
+
                 <div class="line">
                     <label for="pass">Password</label>
                     <input type="password" name="pass" id="pass">
                 </div>
-                
+
                 <div class="line">
                     <label for="phone">Phone Number</label>
                     <input type="number" name="phone" id="phone">
                 </div>
-    
+
                 <button id="create-account" type="submit">Create Account</button>
             </form>
         </div>
-    
+
         <div class="sign-in">
             <form class="sign-in-form" action="">
 
@@ -49,15 +52,40 @@
                     <label for="login-pass">Password</label>
                     <input type="password" name="login-pass" id="login-pass">
                 </div>
-    
+
                 <button id="login" type="submit">Login</button>
             </form>
         </div>
     </div>
 
+    <div id="bet">
+        <form class="bet-form" action="">
+
+            <div id="team-one">
+                <input type="radio" name="team" value="team-one">
+                <span>Golden State Warriors</span>
+                <span>+100</span>
+            </div>
+
+
+            <div id="team-two">
+                <input type="radio" name="team" value="team-two">
+                <span>Miami Heat</span>
+                <span>-120</span>
+            </div>
+
+            <label for="amount">Bet Amount</label>
+            <input type="number" name="amount" id="amount">
+
+            <button id="place" type="submit">Place</button>
+        </form>
+
+    </div>
+
     <button id="list">Display</button>
 
     <table id="item-list"></table>
-    
+
 </body>
+
 </html>

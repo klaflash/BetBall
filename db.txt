@@ -4,6 +4,7 @@ CREATE TABLE User(
    email VARCHAR(50),
    phone VARCHAR(15),
    balance INTEGER,
+   Profit/Loss integer,
    PRIMARY KEY(username)
 );
 
@@ -27,6 +28,10 @@ CREATE TABLE Odds(
    team2_odds integer
 )
 
+CREATE TABLE LeaderBoard(
+   username VARCHAR(50),
+   Profit/Loss integer,
+)
 
 
 

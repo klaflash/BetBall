@@ -19,8 +19,15 @@ input {
     background-color: rgb(34, 34, 34);
 }
 
-#page-one {
+.notVisible {
+    display: none;
+}
+
+.visible {
     display: flex;
+}
+
+#page-one {
     height: 50vh;
     justify-content: center;
     align-items: center;
@@ -65,8 +72,7 @@ input {
     gap: 20px;
 }
 
-.bet {
-    display: flex;
+#bet {
     height: 50vh;
     justify-content: center;
     align-items: center;
