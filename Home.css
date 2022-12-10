@@ -5,6 +5,8 @@ body {
 }
 
 #cardsList {
+    flex-wrap: wrap;
+    justify-content: space-between;
     display: flex;
     position: absolute;
     left: 2%;
@@ -14,6 +16,7 @@ body {
 }
 
 .card {
+    flex: 0 1 30%;
     margin: 15px;
     display: flex;
     flex-direction: column;
