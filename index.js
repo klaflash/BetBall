@@ -26,6 +26,26 @@ $(function () {
     );
   });
 
+  //Create leaderboard table
+  db.transaction(function (transaction) {
+    const sql =
+      'CREATE TABLE Leaderboard(' +
+      'username VARCHAR(50),' +
+      'balance INTEGER,' +
+      'PRIMARY KEY(username))';
+
+    transaction.executeSql(
+      sql,
+      undefined,
+      function () {
+        alert('Leaderboard table created sucessfully');
+      },
+      function () {
+        alert('Leaderboard table is already created');
+      }
+    );
+  });
+
 
   //Create odds table
   db.transaction(function (transaction) {
@@ -107,7 +127,7 @@ $(function () {
     const email = $('#email').val();
     const pass = $('#pass').val();
     const phone = $('#phone').val();
-    const balance = 0;
+    const balance = 100;
 
     db.transaction(function (transaction) {
       const query = `SELECT username FROM User`;
@@ -127,9 +147,11 @@ $(function () {
               alert('Username already in use');
             } else {
               createAccount(transaction, username, email, pass, phone, balance);
+              createLeaderboard(transaction, username, balance);
             }
           } else {
             createAccount(transaction, username, email, pass, phone, balance);
+            createLeaderboard(transaction, username, balance);
           }
         },
         function (transaction2, err) {
@@ -256,6 +278,25 @@ function createOdds(
     },
     function (transaction, err) {
       //alert(err.message);
+    }
+  );
+}
+
+function createLeaderboard(
+  transaction,
+  username,
+  balance
+) {
+  const sql =
+    'INSERT INTO Leaderboard(username, balance) VALUES(?,?)';
+  transaction.executeSql(
+    sql,
+    [username, balance],
+    function () {
+      alert('New item is added successfully');
+    },
+    function (transaction, err) {
+      alert(err.message);
     }
   );
 }

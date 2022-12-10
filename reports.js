@@ -32,20 +32,50 @@ $(function () {
                         '</td></td>'
                     );
 
+                    /*
                     $('#ranking-list').append(
                         '<tr><td>' +
                           username +
                           '</td><td>' +
                           balance +
                           '</td></td>'
-                      );
+                      );*/
                   }
                 } else {
                   $('#item-list').append(
                     '<tr><td colspan="6" align="center">No item found</td></tr>'
                   );
-                  $('#ranking-list').append(
+                  /*$('#ranking-list').append(
                     '<tr><td colspan="3" align="center">No item found</td></tr>'
+                  );*/
+                }
+              },
+              function (transaction, err) {
+                alert(err.message);
+              }
+            );
+
+            const leaderboard = 'SELECT * FROM Leaderboard';
+            transaction.executeSql(
+              leaderboard,
+              undefined,
+              function (transaction, result) {
+                if (result.rows.length) {
+                  for (let i = 0; i < result.rows.length; i++) {
+                    const row = result.rows.item(i);
+                    const username = row.username;
+                    const balance = row.balance;
+                    $('#ranking-list').append(
+                      '<tr><td>' +
+                        username +
+                        '</td><td>' +
+                        balance +
+                        '</td></td>'
+                    );
+                  }
+                } else {
+                  $('#ranking-list').append(
+                    '<tr><td colspan="6" align="center">No item found</td></tr>'
                   );
                 }
               },
