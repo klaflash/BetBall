@@ -27,16 +27,19 @@ $(function () {
                 let div1 = document.createElement("div");
                 let desc = document.createTextNode("Teams "  +  " odds" + "\n");
                 div1.appendChild(desc);
+                div1.classList.add("line");
                 card.appendChild(div1);
 
                 let div2 = document.createElement("div");
                 let team1Text = document.createTextNode(row.team1 + ': ' + row.team1_odds);
                 div2.appendChild(team1Text);
+                div2.classList.add("line");
                 card.appendChild(div2);
 
                 let div3 = document.createElement("div");
                 let team2Text = document.createTextNode(row.team2 + ': ' + row.team2_odds);
-                div3.appendChild(team2Text);
+                div3.appendChild(team2Text);                
+                div3.classList.add("line");
                 card.appendChild(div3);
 
                 let cardList = document.querySelector("#cardsList");

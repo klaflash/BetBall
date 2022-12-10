@@ -155,7 +155,7 @@ $(function () {
                 //alert('Successful login')
                 user = username;
                 localStorage.setItem('username', username);
-                window.location.href = 'dashboard.html';
+                window.location.href = 'Home.html';
               } else {
                 alert('incorrect password');
               }
