@@ -1,0 +1,73 @@
+html,
+body {
+    justify-content: center;
+    background-color: black;
+}
+
+#cardsList {
+    position: absolute;
+    left: 2%;
+    top: 110px;
+    width: 96%;
+    height: 450px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    font-size: 26px;
+    color: #D4AF37;
+    width: 30%;
+    height: 200px;
+    box-sizing: border-box;
+    border: 7px solid #D4AF37;
+    border-radius: 35px;
+}
+
+.container {
+    align-items: center;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.Logo {
+    height: 80px;
+}
+
+.rowFlexLeft {
+    width: 33%;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.rowFlexRight {
+    width: 33%;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.userImg {
+    height: 40px;
+}
+
+.Nav {
+    padding-left: 3%;
+    padding-right: 3%;
+    width: 94%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* background-color: rgba(126, 126, 126, 0.2); */
+}
+
+.bottomDiv {
+    width: 100%;
+}

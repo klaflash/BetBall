@@ -1,7 +1,7 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 let user;
 
-document.getElementById('page-one').style.display = "none";
+
 
 $(function () {
   db.transaction(function (transaction) {

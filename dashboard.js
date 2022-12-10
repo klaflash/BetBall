@@ -22,6 +22,12 @@ $(function () {
 
         });
 
+        $('#view-Home').click(function () {
+
+          window.location.href = 'Home.html';
+
+      });
+
         const odds = 'SELECT * FROM Odds';
             transaction.executeSql(
               odds,
@@ -54,6 +60,39 @@ $(function () {
                     '<tr><td colspan="6" align="center">No item found</td></tr>'
                   );
                 }
+              },
+              function (transaction, err) {
+                alert(err.message);
+              }
+            );
+
+            transaction.executeSql(
+              odds,
+              undefined,
+              function (transaction, result) {
+                if (result.rows.length) {
+                  for (let i = 0; i < result.rows.length; i++) {
+                    const row = result.rows.item(i);
+                    const game_ID = row.game_ID;
+                    const team1 = row.team1;
+                    const team2 = row.team2;
+                    const team1_odds = row.team1_odds;
+                    const team2_odds = row.team2_odds;
+
+                    let card = document.createElement("div");
+
+                    let team1Text = document.createTextNode('Team 1:' + row.team1 + ': ' + row.team1_odds);
+                    card.appendChild(team1Text);
+
+                    let team2Text = document.createTextNode('Team 2:' + row.team2 + ': ' + row.team2_odds);
+                    card.appendChild(team2Text);
+
+                    let gameID = document.createTextNode('game ID:' + row.game_ID);
+                    card.appendChild(gameID);
+
+                    $('#cardsList').appendChild(card)
+                  }
+                } 
               },
               function (transaction, err) {
                 alert(err.message);
