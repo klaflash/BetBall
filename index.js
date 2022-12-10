@@ -50,10 +50,10 @@ $(function () {
       }
     );
 
-    const team1 = ['Golden State Warriors', 'San Antonio Spurs'];
-    const team2 = ['Miami Heat', 'Miami Heat'];
-    const team1_odds = ['+100', '+550'];
-    const team2_odds = ['-120', '-800'];
+    const team1 = ['Golden State Warriors', 'San Antonio Spurs', 'Brooklyn Nets', 'LA Clippers', 'Boston Celtics', 'Utah Jazz'];
+    const team2 = ['Miami Heat', 'Miami Heat', 'Indiana Pacers', 'Washington Wizards', 'Golden State Warriors', 'Denver Nuggets'];
+    const team1_odds = ['+100', '+550', '+250', '-210', '-145', '+460'];
+    const team2_odds = ['-120', '-800', '-320', '+175', '+122', '-650'];
 
     odds_arr = []
 
@@ -107,7 +107,7 @@ $(function () {
     const email = $('#email').val();
     const pass = $('#pass').val();
     const phone = $('#phone').val();
-    const balance = 0;
+    const balance = 100;
 
     db.transaction(function (transaction) {
       const query = `SELECT username FROM User`;
