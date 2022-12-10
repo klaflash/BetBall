@@ -1,9 +1,9 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 let user;
 
-$(function () {
 
-  //Create user table
+
+$(function () {
   db.transaction(function (transaction) {
     const sql =
       'CREATE TABLE User(' +
@@ -26,88 +26,12 @@ $(function () {
     );
   });
 
-
-  //Create odds table
-  db.transaction(function (transaction) {
-    const sql =
-      'CREATE TABLE Odds(' +
-      'game_ID varchar(50),' +
-      'team1 varchar(50),' +
-      'team2 varchar(50),' +
-      'team1_odds integer,' +
-      'team2_odds integer,' +
-      'PRIMARY KEY (game_ID))';
-     
-
-    transaction.executeSql(
-      sql,
-      undefined,
-      function () {
-        //alert('Odds table created sucessfully');
-      },
-      function () {
-        //alert('Odds table is already created');
-      }
-    );
-
-    const team1 = ['Golden State Warriors', 'San Antonio Spurs', 'Brooklyn Nets', 'LA Clippers', 'Boston Celtics', 'Utah Jazz'];
-    const team2 = ['Miami Heat', 'Miami Heat', 'Indiana Pacers', 'Washington Wizards', 'Golden State Warriors', 'Denver Nuggets'];
-    const team1_odds = ['+100', '+550', '+250', '-210', '-145', '+460'];
-    const team2_odds = ['-120', '-800', '-320', '+175', '+122', '-650'];
-
-    odds_arr = []
-
-    for (let i = 0; i < team1.length; i++) {
-        odds_arr.push({
-            game_ID: i,
-            team1: team1[i],
-            team2: team2[i],
-            team1_odds: team1_odds[i],
-            team2_odds: team2_odds[i]
-        })
-    }
-
-
-    for (let i = 0; i < odds_arr.length; i++) {
-
-        db.transaction(function (transaction) {
-        const query = `SELECT game_ID FROM Odds`;
-        transaction.executeSql(
-            query,
-            undefined,
-            function (transaction2, result) {
-            if (result.rows.length) {
-                let found = false;
-                for (let i = 0; i < result.rows.length; i++) {
-                if (result.rows.item(i).game_ID === i) {
-                    found = true;
-                }
-                }
-
-                if (found) {
-                alert('game_ID already in use');
-                } else {
-                createOdds(transaction, i, team1[i], team2[i], team1_odds[i], team2_odds[i]);
-                }
-            } else {
-                createOdds(transaction, i, team1[i], team2[i], team1_odds[i], team2_odds[i]);
-            }
-            },
-            function (transaction2, err) {
-            //alert(err.message);
-            }
-        );
-        });
-    }
-
-  });
-
   $('#create-account').click(function () {
     const username = $('#username').val();
     const email = $('#email').val();
     const pass = $('#pass').val();
     const phone = $('#phone').val();
-    const balance = 100;
+    const balance = 0;
 
     db.transaction(function (transaction) {
       const query = `SELECT username FROM User`;
@@ -152,10 +76,9 @@ $(function () {
             if (result.rows.item(i).username === username) {
               foundUser = true;
               if (result.rows.item(i).password === password) {
-                //alert('Successful login')
+                //alert('Sucessfull login')
                 user = username;
-                localStorage.setItem('username', username);
-                window.location.href = 'Home.html';
+                window.location.href = 'dashboard.html';
               } else {
                 alert('incorrect password');
               }
@@ -216,14 +139,7 @@ $(function () {
   });
 });
 
-function createAccount(
-  transaction,
-  username,
-  email,
-  pass,
-  phone,
-  balance
-) {
+function createAccount(transaction, username, email, pass, phone, balance) {
   const sql =
     'INSERT INTO USER(username, email, password, phone, balance) VALUES(?,?,?,?,?)';
   transaction.executeSql(
@@ -238,24 +154,5 @@ function createAccount(
   );
 }
 
-function createOdds(
-  transaction,
-  game_ID,
-  team1,
-  team2,
-  team1_odds,
-  team2_odds,
-) {
-  const sql =
-    'INSERT INTO Odds(game_ID, team1, team2, team1_odds, team2_odds) VALUES(?,?,?,?,?)';
-  transaction.executeSql(
-    sql,
-    [game_ID, team1, team2, team1_odds, team2_odds],
-    function () {
-      //alert('New item is added successfully');
-    },
-    function (transaction, err) {
-      //alert(err.message);
-    }
-  );
-}
+//console.log(typeof exports === "object")
+//module.exports = {db, user};
