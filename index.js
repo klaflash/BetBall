@@ -38,10 +38,10 @@ $(function () {
       sql,
       undefined,
       function () {
-        alert('Leaderboard table created sucessfully');
+        //alert('Leaderboard table created sucessfully');
       },
       function () {
-        alert('Leaderboard table is already created');
+        //alert('Leaderboard table is already created');
       }
     );
   });
@@ -293,10 +293,10 @@ function createLeaderboard(
     sql,
     [username, balance],
     function () {
-      alert('New item is added successfully');
+      //alert('New item is added successfully');
     },
     function (transaction, err) {
-      alert(err.message);
+      //alert(err.message);
     }
   );
 }

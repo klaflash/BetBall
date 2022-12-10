@@ -124,7 +124,7 @@ $(function () {
 
 
         $('#dashboard').click(function () {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'Home.html';
         });
 
     });
