@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./index.js"></script>
     <title>BetBall</title>
 </head>
 <body>
@@ -39,13 +41,13 @@
             <form class="sign-in-form" action="">
 
                 <div class="line">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username">
+                    <label for="login-username">Username</label>
+                    <input type="text" name="login-username" id="login-username">
                 </div>
 
                 <div class="line">
-                    <label for="pass">Password</label>
-                    <input type="password" name="pass" id="pass">
+                    <label for="login-pass">Password</label>
+                    <input type="password" name="login-pass" id="login-pass">
                 </div>
     
                 <button id="login" type="submit">Login</button>
@@ -53,29 +55,9 @@
         </div>
     </div>
 
-    <div class="bet">
-        <form class="bet-form" action="">
-            
-            <div id="team-one">
-                <input type="radio" name="team" value="team-one">
-                <span>Golden State Warriors</span>
-                <span>+100</span>
-            </div>
+    <button id="list">Display</button>
 
-            
-            <div id="team-two">
-                <input type="radio" name="team" value="team-two">
-                <span>Miami Heat</span>
-                <span>-120</span>
-            </div>
-            
-            <label for="amount">Bet Amount</label>
-            <input type="number" name="amount" id="amount">
-
-            <button id="place" type="submit">Place</button>
-        </form>
-
-    </div>
+    <table id="item-list"></table>
     
 </body>
 </html>
