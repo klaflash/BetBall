@@ -8,8 +8,6 @@ var game_ID;
 
 $(function () {
     
-    
-    
     db.transaction(function (transaction) {
         const odds = 'SELECT * FROM Odds';
         transaction.executeSql(

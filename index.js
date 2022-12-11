@@ -62,6 +62,24 @@ $(function () {
     })
   })
 
+  db.transaction(function (transaction) {
+    const sql = 'CREATE PROCEDURE get_row_count(table_name TEXT) BEGIN SELECT COUNT(*) FROM table_name; END;'
+    transaction.executeSql(sql, undefined, function () {
+      //alert('success')
+    }, function () {
+      //alert('failure')
+    })
+  })
+
+  db.transaction(function (transaction) {
+    const sql = 'CREATE PROCEDURE get_specific_user(user_name TEXT) BEGIN SELECT * FROM Bets WHERE username == user_name; END;'
+    transaction.executeSql(sql, undefined, function () {
+      //alert('success')
+    }, function () {
+      //alert('failure')
+    })
+  })
+
   //Create leaderboard table
   db.transaction(function (transaction) {
     const sql =

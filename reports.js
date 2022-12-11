@@ -161,7 +161,7 @@ $(function () {
       );
     }
     else {
-      const teams_sql = 'SELECT * FROM Odds USE INDEX (team_idx) WHERE team1 == \'' + foobar + '\' OR team2 == \'' + foobar + '\'';
+      const teams_sql = 'SELECT * FROM Odds WHERE team1 == \'' + foobar + '\' OR team2 == \'' + foobar + '\'';
 
       transaction.executeSql(
         teams_sql,
