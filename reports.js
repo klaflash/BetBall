@@ -55,7 +55,13 @@ $(function () {
               }
             );
 
-            const leaderboard = 'SELECT * FROM Leaderboard';
+          });
+
+
+          db.transaction(function (transaction) {
+            const bar = localStorage.getItem("leaderboardSort");
+            const leaderboard = 'SELECT * FROM Leaderboard ORDER BY balance ' + bar;
+
             transaction.executeSql(
               leaderboard,
               undefined,
@@ -65,6 +71,7 @@ $(function () {
                     const row = result.rows.item(i);
                     const username = row.username;
                     const balance = row.balance;
+
                     $('#ranking-list').append(
                       '<tr><td>' +
                         username +
@@ -78,12 +85,17 @@ $(function () {
                     '<tr><td colspan="6" align="center">No item found</td></tr>'
                   );
                 }
+
+                //alert("Added values to leaderboard");
               },
               function (transaction, err) {
                 alert(err.message);
               }
             );
+          });
 
+
+          db.transaction(function (transaction) {
             const odds = 'SELECT * FROM Odds';
             transaction.executeSql(
               odds,
@@ -121,12 +133,30 @@ $(function () {
                 alert(err.message);
               }
             );
+            });
 
 
         $('#dashboard').click(function () {
-            window.location.href = 'Home.html';
+          db.transaction(function (transaction) {
+          window.location.href = 'Home.html';
+          });
         });
 
-    });
+      $('#sort').click(function () {
+        db.transaction(function (transaction) {
+        $('#ranking-list').children().remove();
+        
+        let foo = localStorage.getItem("leaderboardSort");
 
+        if (foo == "DESC")
+        {
+          localStorage.setItem("leaderboardSort", "ASC");
+        }
+        else
+        {
+          localStorage.setItem("leaderboardSort", "DESC");
+        }
+
+      });
+      });
 });

@@ -1,5 +1,6 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 let user;
+localStorage.setItem('leaderboardSort', 'ASC');
 
 const dict = {
 }
