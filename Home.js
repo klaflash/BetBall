@@ -130,7 +130,7 @@ $(function () {
                                     createBet(transaction, amountVal,"ln", payout, "Admin", game_ID, oddsVal);
                                 },
                             function (transaction, err) {
-                            alert(err.message);
+                            //alert(err.message);
                             });
                         
                         });
@@ -163,7 +163,7 @@ function createBet(transaction, amount, description, payout, username, game_ID, 
       sql,
       [amount, description, payout, username, game_ID, placed_odds],
       function () {
-        alert('New item is added successfully');
+        //alert('New item is added successfully');
       },
       function (transaction, err) {
         alert(err.message);
