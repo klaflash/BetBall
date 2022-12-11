@@ -29,6 +29,21 @@ $(function () {
       sql,
       undefined,
       function () {
+        db.transaction(function (transaction) {
+          const sql =
+            'SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED';
+      
+          transaction.executeSql(
+            sql,
+            undefined,
+            function () {
+              //alert('User table created sucessfully');
+            },
+            function () {
+              //alert('User table is already created');
+            }
+          );
+        });
         //alert('User table created sucessfully');
       },
       function () {
@@ -112,6 +127,21 @@ $(function () {
       bets,
       undefined,
       function () {
+        db.transaction(function (transaction) {
+          const sql =
+            'SET TRANSACTION ISOLATION LEVEL SERIALIZABLE';
+      
+          transaction.executeSql(
+            sql,
+            undefined,
+            function () {
+              //alert('User table created sucessfully');
+            },
+            function () {
+              //alert('User table is already created');
+            }
+          );
+        });
         //alert('Bets table created sucessfully');
       },
       function () {
