@@ -37,6 +37,16 @@ $(function () {
     );
   });
 
+  db.transaction(function (transaction) {
+    const sql = 'CREATE INDEX user_idx ON User (username)'
+
+    transaction.executeSql(sql, undefined, function () {
+      //alert('success')
+    }, function () {
+      //alert('failure')
+    })
+  })
+
   //Create leaderboard table
   db.transaction(function (transaction) {
     const sql =
@@ -185,6 +195,16 @@ $(function () {
     }
 
   });
+
+  db.transaction(function (transaction) {
+    const sql = 'CREATE INDEX team_idx ON Odds (team1)'
+
+    transaction.executeSql(sql, undefined, function () {
+      //alert('success')
+    }, function () {
+      //alert('failure')
+    })
+  })
 
   $('#create-account').click(function () {
     const username = $('#username').val();
