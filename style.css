@@ -4,80 +4,90 @@
     box-sizing: border-box;
     font-size: 18px;
     color: #d4af37;
-  }
-  
-  body {
+}
+
+body {
     background-color: black;
-  }
-  
-  button {
+}
+
+.Nav {
+    display: flex;
+    flex-direction: row;
+}
+
+#Logo {
+    height: 80px;
+}
+
+button {
     background-color: #d4af37;
     color: black;
-  }
-  
-  input {
+}
+
+input {
     background-color: rgb(34, 34, 34);
-  }
-  
-  #page-one {
+}
+
+#page-one {
     display: flex;
     height: 80vh;
     justify-content: center;
     align-items: center;
     gap: 7%;
-  }
-  
-  .line {
+}
+
+.line {
     display: flex;
     flex-direction: column;
     gap: 3px;
-  }
-  
-  .sign-up {
+}
+
+.sign-up {
     display: flex;
     height: 45vh;
     width: 20%;
     justify-content: center;
     border: 3px solid #d4af37;
-  }
-  
-  .sign-up-form {
+}
+
+.sign-up-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-  }
-  
-  .sign-in {
+}
+
+.sign-in {
     display: flex;
     height: 30vh;
     width: 20%;
     justify-content: center;
     border: 3px solid #d4af37;
-  }
-  
-  .sign-in-form {
+}
+
+.sign-in-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-  }
-  
-  #bet {
+}
+
+#bet {
     display: flex;
     height: 50vh;
     justify-content: center;
     align-items: center;
-  }
-  
-  .bet-form {
+}
+
+.bet-form {
     padding: 2rem;
     border: 3px solid #d4af37;
-  }
-  
-  .welcome {
+}
+
+.welcome {
+    margin-left: 35%;
     text-align: center;
     font-size: 40px;
     margin-block: 20px;
