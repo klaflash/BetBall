@@ -1,10 +1,9 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 
-var betId = 0;
-var amountVal = 0;
-var payout = 0;
-var oddsVal = 0;
-var game_ID = 0; 
+var amountVal;
+var payout;
+var oddsVal;
+var game_ID; 
 
 $(function () {
     
@@ -95,7 +94,7 @@ $(function () {
 
                     let submit = document.createElement("button");
                     submit.setAttribute("id", "place");
-                    submit.setAttribute("type", "button");
+                    submit.setAttribute("type", "submit");
                     submit.innerHTML = "Place";
     
                     container.appendChild(submit);
@@ -117,9 +116,25 @@ $(function () {
               
                         let amountVal = document.getElementById("amount").value;
                         let payout = oddsVal/100 * amountVal;
-                        console.log(betId + ", " + amountVal+ ", " + payout );
+                        
                         modal.style.display = "none";
-                        //createBet(transaction, betId, amountVal,"", payout, "Admin", game_ID, oddsVal);
+
+                        db.transaction(function (transaction) {
+        
+                            const bets = 'SELECT * FROM BETS';
+                            transaction.executeSql(
+                                bets,
+                                undefined,
+                                function (transaction, result) {
+                                    console.log(result);
+                                    createBet(transaction, amountVal,"ln", payout, "Admin", game_ID, oddsVal);
+                                },
+                            function (transaction, err) {
+                            alert(err.message);
+                            });
+                        
+                        });
+                        //createBet(transaction, amountVal,"", payout, "Admin", game_ID, oddsVal);
                     }
                 }
                 }
@@ -129,39 +144,24 @@ $(function () {
         alert(err.message);
         });
     })
-    db.transaction(function (transaction) {
-        const BETS = 'SELECT * FROM BETS';
-        transaction.executeSql(
-            BETS,
-            undefined,
-            function (transaction, result) {
-                betId = result.rows.length + 1;
-            }
-        )
-    });
-    db.transaction(function (transaction) {
-        
-        const bets = 'SELECT * FROM BETS';
-        transaction.executeSql(
-            bets,
-            undefined,
-            function (transaction, result) {
-                console.log(betId);
-
-                createBet(transaction, betId, amountVal,"ln", payout, "Admin", game_ID, oddsVal);
-            },
-        function (transaction, err) {
-        alert(err.message);
-        });
+    // db.transaction(function (transaction) {
+    //     const BETS = 'SELECT * FROM BETS';
+    //     transaction.executeSql(
+    //         BETS,
+    //         undefined,
+    //         function (transaction, result) {
+    //             betId = result.rows.length + 1;
+    //         }
+    //     )
+    // });
     
-});
 
-function createBet(transaction, bet_id, amount, description, payout, username, game_ID, placed_odds) {
+function createBet(transaction, amount, description, payout, username, game_ID, placed_odds) {
     const sql =
-      'INSERT INTO BETS(bet_id, amount, description, payout, username, game_ID, placed_odds) VALUES(?,?,?,?,?,?,?)';
+      'INSERT INTO BETS(amount, description, payout, username, game_ID, placed_odds) VALUES(?,?,?,?,?,?)';
     transaction.executeSql(
       sql,
-      [bet_id, amount, description, payout, username, game_ID, placed_odds],
+      [amount, description, payout, username, game_ID, placed_odds],
       function () {
         alert('New item is added successfully');
       },
