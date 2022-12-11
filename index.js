@@ -1,6 +1,11 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 let user;
 
+const dict = {
+}
+dict['user1'] = 50;
+dict.user1
+
 $(function () {
 
   //Create user table
@@ -42,6 +47,33 @@ $(function () {
       },
       function () {
         //alert('Leaderboard table is already created');
+      }
+    );
+  });
+
+  //Create bets table
+  db.transaction(function (transaction) {
+
+    const bets =
+    'CREATE TABLE Bets(' +
+      'bet_id integer,' +
+      'amount integer,' +
+      'description varchar(50),' +
+      'event_time datetime,' +
+      'payout integer,' +
+      'username VARCHAR(50),' +
+      'game_ID VARCHAR(50),' +
+      'placed_odds integer,' +
+      'PRIMARY KEY(bet_id))';
+
+    transaction.executeSql(
+      bets,
+      undefined,
+      function () {
+        //alert('Bets table created sucessfully');
+      },
+      function () {
+        //alert('Bets table is already created');
       }
     );
   });
@@ -127,7 +159,7 @@ $(function () {
     const email = $('#email').val();
     const pass = $('#pass').val();
     const phone = $('#phone').val();
-    const balance = 100;
+    const balance = 120;
 
     db.transaction(function (transaction) {
       const query = `SELECT username FROM User`;
