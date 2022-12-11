@@ -1,6 +1,7 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 let user;
 localStorage.setItem('leaderboardSort', 'ASC');
+localStorage.setItem('oddsFilter', 'all');
 
 const dict = {
 }
@@ -8,6 +9,9 @@ dict['user1'] = 50;
 dict.user1
 
 $(function () {
+
+  const testing = localStorage.getItem("oddsFilter");
+  alert("oddsFilter = " + testing);
 
   //Create user table
   db.transaction(function (transaction) {
