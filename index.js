@@ -2,6 +2,7 @@ let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
 let user;
 localStorage.setItem('leaderboardSort', 'ASC');
 localStorage.setItem('oddsFilter', 'All teams');
+localStorage.setItem('betSort', 'ASC');
 
 const dict = {
 }
@@ -56,6 +57,34 @@ $(function () {
     );
   });
 
+  //Create admin table
+  db.transaction(function (transaction) {
+
+    const sql =
+      'CREATE TABLE Admin(' +
+      'username VARCHAR(50),' +
+      'password VARCHAR(50),' +
+      'email VARCHAR(50),' +
+      'phone VARCHAR(15),' +
+      'PRIMARY KEY(username))';
+
+    transaction.executeSql(
+      sql,
+      undefined,
+      function () {
+        //alert('Admin table created sucessfully');
+      },
+      function () {
+        //alert('Admin table is already created');
+      }
+    );
+
+    checkForAdmin(transaction, "admin0", "pass0", "admin0@betball.com", "1234567890");
+    checkForAdmin(transaction, "admin1", "pass1", "admin1@betball.com", "0987654321");
+    checkForAdmin(transaction, "admin2", "pass2", "admin2@betball.com", "6574839201");
+
+  });
+
   //Create bets table
   db.transaction(function (transaction) {
 
@@ -63,7 +92,6 @@ $(function () {
     'CREATE TABLE Bets(' +
       'bet_id integer,' +
       'amount integer,' +
-      'description varchar(50),' +
       'payout integer,' +
       'username VARCHAR(50),' +
       'game_ID VARCHAR(50),' +
@@ -163,7 +191,7 @@ $(function () {
     const email = $('#email').val();
     const pass = $('#pass').val();
     const phone = $('#phone').val();
-    const balance = 120;
+    const balance = 100;
 
     db.transaction(function (transaction) {
       const query = `SELECT username FROM User`;
@@ -282,10 +310,10 @@ function createAccount(
   phone,
   balance
 ) {
-  const sql =
+  const userSQL =
     'INSERT INTO USER(username, email, password, phone, balance) VALUES(?,?,?,?,?)';
   transaction.executeSql(
-    sql,
+    userSQL,
     [username, email, pass, phone, balance],
     function () {
       //alert('New item is added successfully');
@@ -330,6 +358,64 @@ function createLeaderboard(
     [username, balance],
     function () {
       //alert('New item is added successfully');
+    },
+    function (transaction, err) {
+      //alert(err.message);
+    }
+  );
+}
+
+function checkForAdmin(
+  transaction,
+  username,
+  email,
+  pass,
+  phone
+) {
+
+  const query = 'SELECT username FROM Admin';
+  transaction.executeSql(
+    query,
+    undefined,
+    function (transaction, result) {
+      if (result.rows.length) {
+        let found = false;
+        for (let i = 0; i < result.rows.length; i++) {
+          if (result.rows.item(i).username === i) {
+            found = true;
+          }
+        }
+
+        if (found) {
+          //alert('admin username already in use');
+        } else {
+          createAdmin(transaction, username, email, pass, phone);
+        }
+      } else {
+        createAdmin(transaction, username, email, pass, phone);
+      }
+    },
+    function (transaction, err) {
+      //alert(err.message);
+    }
+  );
+
+}
+
+function createAdmin(
+  transaction,
+  username,
+  email,
+  pass,
+  phone
+) {
+  const sql =
+    'INSERT INTO Admin(username, email, password, phone) VALUES(?,?,?,?)';
+  transaction.executeSql(
+    sql,
+    [username, email, pass, phone],
+    function () {
+      //alert('New admin added successfully');
     },
     function (transaction, err) {
       //alert(err.message);

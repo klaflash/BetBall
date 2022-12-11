@@ -5,31 +5,37 @@ $(function () {
 
 
   db.transaction(function (transaction) {
-
-    const sql = 'SELECT * FROM User';
+    const bar = localStorage.getItem("betSort");
+    const sql = 'SELECT * FROM Bets ORDER BY payout ' + bar;
     transaction.executeSql(
       sql,
       undefined,
       function (transaction, result) {
         if (result.rows.length) {
+          $('#bets-list').append(
+            '<tr><th>bet_id</th><th>amount</th><th>payout</th><th>username</th></tr>'
+          )
           for (let i = 0; i < result.rows.length; i++) {
             const row = result.rows.item(i);
+            const bet_id = row.bet_id;
+            const amount = row.amount;
+            const payout = row.payout;
             const username = row.username;
-            const password = row.password;
-            const email = row.email;
-            const phone = row.phone;
-            const balance = row.balance;
-            $('#users-list').append(
+            const game_ID = row.game_ID;
+            const placed_odds = row.placed_odds;
+            $('#bets-list').append(
               '<tr><td>' +
+              bet_id +
+              '</td><td>' +
+              amount +
+              '</td><td>' +
+              payout +
+              '</td><td>' +
               username +
-              '</td><td>' +
-              password +
-              '</td><td>' +
-              email +
-              '</td><td>' +
-              phone +
-              '</td><td>' +
-              balance +
+              '</td></td>' +
+              game_ID +
+              '</td></td>' +
+              placed_odds +
               '</td></td>'
             );
 
@@ -42,6 +48,9 @@ $(function () {
                   '</td></td>'
               );*/
           }
+          $('#bets-list').append(
+            '</tr>'
+          );
         } else {
           $('#item-list').append(
             '<tr><td colspan="6" align="center">No item found</td></tr>'
@@ -68,6 +77,9 @@ $(function () {
       undefined,
       function (transaction, result) {
         if (result.rows.length) {
+          $('#ranking-list').append(
+            '<tr><th>Username</th><th>Balance</th></tr>'
+          )
           for (let i = 0; i < result.rows.length; i++) {
             const row = result.rows.item(i);
             const username = row.username;
@@ -81,6 +93,9 @@ $(function () {
               '</td></td>'
             );
           }
+          $('#ranking-list').append(
+            '</tr>'
+          );
         } else {
           $('#ranking-list').append(
             '<tr><td colspan="6" align="center">No item found</td></tr>'
@@ -107,6 +122,9 @@ $(function () {
         undefined,
         function (transaction, result) {
           if (result.rows.length) {
+            $('#odds-list').append(
+              '<tr><th>game_id</th><th>team1</th><th>team2</th><th>team1_odds</th><th>team2_odds</th></tr>'
+            )
             for (let i = 0; i < result.rows.length; i++) {
               const row = result.rows.item(i);
               const game_ID = row.game_ID;
@@ -128,6 +146,9 @@ $(function () {
                 '</td></td>'
               );
             }
+            $('#odds-list').append(
+              '</tr>'
+            );
           } else {
             $('#odds-list').append(
               '<tr><td colspan="6" align="center">No item found</td></tr>'
@@ -147,6 +168,9 @@ $(function () {
         undefined,
         function (transaction, result) {
           if (result.rows.length) {
+            $('#odds-list').append(
+              '<tr><th>game_id</th><th>team1</th><th>team2</th><th>team1_odds</th><th>team2_odds</th></tr>'
+            )
             for (let i = 0; i < result.rows.length; i++) {
               const row = result.rows.item(i);
               const game_ID = row.game_ID;
@@ -168,6 +192,9 @@ $(function () {
                 '</td></td>'
               );
             }
+            $('#odds-list').append(
+              '</tr>'
+            );
           } else {
             $('#odds-list').append(
               '<tr><td colspan="6" align="center">No item found</td></tr>'
@@ -189,6 +216,9 @@ $(function () {
               undefined,
               function (transaction, result) {
                 if (result.rows.length) {
+                  $('#team-sort').append(
+                    '<tr><th>team1</th><th>team2</th></tr>'
+                  )
                   $('#team-sort').append('<option>All teams</option>');
                   for (let i = 0; i < result.rows.length; i++) {
                     const row = result.rows.item(i);
@@ -201,6 +231,9 @@ $(function () {
                   for (names of uniqueTeams.values()) {
                     $('#team-sort').append(`<option value="${names}">${names}</option>`)
                   }
+                  $('#team-sort').append(
+                    '</tr>'
+                  );
                 } else {
                   $('#team-sort').append('<option>No teams</option>');
                 }
@@ -218,7 +251,7 @@ $(function () {
     });
   });
 
-  $('#sort').click(function () {
+  $('#sort-teams').click(function () {
     db.transaction(function (transaction) {
       $('#ranking-list').children().remove();
 
@@ -229,6 +262,22 @@ $(function () {
       }
       else {
         localStorage.setItem("leaderboardSort", "DESC");
+      }
+
+    });
+  });
+
+  $('#sort-bets').click(function () {
+    db.transaction(function (transaction) {
+      $('#bets-list').children().remove();
+
+      let foo = localStorage.getItem("betSort");
+
+      if (foo == "DESC") {
+        localStorage.setItem("betSort", "ASC");
+      }
+      else {
+        localStorage.setItem("betSort", "DESC");
       }
 
     });

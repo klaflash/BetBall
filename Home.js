@@ -1,4 +1,5 @@
 let db = openDatabase('itemDB', '1.0', 'Betball', 5000);
+let username = localStorage.getItem("username");
 
 var amountVal;
 var payout;
@@ -116,6 +117,8 @@ $(function () {
               
                         let amountVal = document.getElementById("amount").value;
                         let payout = oddsVal/100 * amountVal;
+                        payout = Math.abs(payout);
+                        //payout = Math.floor(payout);
                         
                         modal.style.display = "none";
 
@@ -127,7 +130,7 @@ $(function () {
                                 undefined,
                                 function (transaction, result) {
                                     console.log(result);
-                                    createBet(transaction, amountVal,"ln", payout, "Admin", game_ID, oddsVal);
+                                    createBet(transaction, (result.rows.length+1), amountVal, payout, username, game_ID, oddsVal);
                                 },
                             function (transaction, err) {
                             //alert(err.message);
@@ -156,12 +159,14 @@ $(function () {
     // });
     
 
-function createBet(transaction, amount, description, payout, username, game_ID, placed_odds) {
-    const sql =
-      'INSERT INTO BETS(amount, description, payout, username, game_ID, placed_odds) VALUES(?,?,?,?,?,?)';
+function createBet(transaction, bet_id, amount, payout, username, game_ID, placed_odds) {
+    //alert("Creating bet...");
+    //alert("bet_id = " + bet_id + ", amount = " + amount + ", payout = " + payout + ", username = " + username);
+    const betSQL =
+      'INSERT INTO BETS(bet_id, amount, payout, username, game_ID, placed_odds) VALUES(?,?,?,?,?,?)';
     transaction.executeSql(
-      sql,
-      [amount, description, payout, username, game_ID, placed_odds],
+      betSQL,
+      [bet_id, amount, payout, username, game_ID, placed_odds],
       function () {
         //alert('New item is added successfully');
       },
