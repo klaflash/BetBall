@@ -4,6 +4,14 @@ body {
     background-color: black;
 }
 
+.modal {
+    color: #D4AF37;
+    position: absolute;
+    background-color: #000000d5;
+    width: 100%;
+    height: 100%;
+}
+
 #cardsList {
     flex-wrap: wrap;
     justify-content: space-between;

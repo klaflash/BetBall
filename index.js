@@ -64,7 +64,6 @@ $(function () {
       'bet_id integer,' +
       'amount integer,' +
       'description varchar(50),' +
-      'event_time datetime,' +
       'payout integer,' +
       'username VARCHAR(50),' +
       'game_ID VARCHAR(50),' +
