@@ -100,7 +100,7 @@ $(function () {
 
     const foobar = localStorage.getItem("oddsFilter");
 
-    if (foobar == "all") {
+    if (foobar == "All teams") {
       const odds = 'SELECT * FROM Odds';
       transaction.executeSql(
         odds,
@@ -189,6 +189,7 @@ $(function () {
               undefined,
               function (transaction, result) {
                 if (result.rows.length) {
+                  $('#team-sort').append('<option>All teams</option>');
                   for (let i = 0; i < result.rows.length; i++) {
                     const row = result.rows.item(i);
                     const team1 = row.team1;
